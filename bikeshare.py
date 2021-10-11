@@ -8,6 +8,7 @@ import time
 import pandas as pd
 import numpy as np
 
+#city_data include name of cities format csv
 CITY_DATA = { 'chicago': 'chicago.csv',
              'new york city': 'new_york_city.csv',
              'washington': 'washington.csv' }
@@ -165,7 +166,7 @@ def user_stats(df):
 
     # TO DO: Display counts of gender
     # TO DO: Display earliest, most recent, and most common year of birth
-
+    # TRY  and EXCEPT is used to print the data correctly for cities without gender and birth year not available
     try:
         gender = df['Gender'].value_counts()
         minbirth = df['Birth Year'].min()
