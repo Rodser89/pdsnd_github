@@ -7,7 +7,7 @@ Include the date you created this project and README file.
 bikeshare
 
 ### Description
-Describe what your project is about and what it does
+Provides usefull information about bike riders
 
 ### Files used
 Include the files used
