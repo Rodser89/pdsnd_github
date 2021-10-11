@@ -8,11 +8,11 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv', 
-             'new york city': 'new_york_city.csv', 
+CITY_DATA = { 'chicago': 'chicago.csv',
+             'new york city': 'new_york_city.csv',
              'washington': 'washington.csv' }
 
-MONTH_PARAMETER = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
+MONTH_PARAMETER = ['all', 'january', 'february', 'march', 'april', 'may', 'june','july']
 DAY_PARAMETER = ['all', 'monday', 'tuesday', 'wednesday', 'friday', 'saturday', 'sunday']
 
 def get_filters():
@@ -25,7 +25,7 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    
+
 # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     city_info = ''
     while city_info.lower() not in CITY_DATA:
@@ -34,7 +34,7 @@ def get_filters():
             city = CITY_DATA[city_info.lower()]
         else:
             print("City not valid please try again.\n")
-    
+
 # TO DO: get user input for month (all, january, february, ... , june)
     month_info = ''
     while month_info.lower() not in MONTH_PARAMETER:
@@ -67,7 +67,7 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     #dataframe
     df = pd.read_csv(city)
 
@@ -77,8 +77,8 @@ def load_data(city, month, day):
     df['dow'] = df['Start Time'].dt.weekday_name
     df['hour'] = df['Start Time'].dt.hour
 
-    
-    
+
+
     # filters
     if month != 'all':
         month = MONTH_PARAMETER.index(month)
@@ -94,7 +94,7 @@ def time_stats(df):
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
+
     # TO DO: display the most common month
     most_common_month = df['month'].mode()[0]
     print("The most common month is: " + MONTH_PARAMETER[most_common_month].title())
@@ -128,17 +128,17 @@ def station_stats(df):
     # TO DO: display most frequent combination of start station and end station trip
     most_frequent_station = df[['Start Station', 'End Station']].mode().loc[0]
     print("The most commonly used start and end station is: {}, {}"          .format(most_frequent_station[0],most_frequent_station[1]))
-                               
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
-    
+
 
     # TO DO: display total travel time
     travel_time = df['Trip Duration'].sum()
@@ -150,8 +150,8 @@ def trip_duration_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
-    
+
+
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
@@ -162,11 +162,11 @@ def user_stats(df):
     # TO DO: Display counts of user types
     types = df['User Type'].value_counts()
     print("The count of user by types is: \n" + str(types))
-     
-    # TO DO: Display counts of gender   
+
+    # TO DO: Display counts of gender
     # TO DO: Display earliest, most recent, and most common year of birth
 
-    try: 
+    try:
         gender = df['Gender'].value_counts()
         minbirth = df['Birth Year'].min()
         maxbirth = df['Birth Year'].max()
@@ -174,16 +174,16 @@ def user_stats(df):
         print(gender.reset_index())
         print('Display earliest, most recent, and most common year of birth :',minbirth)
         print('Display earliest, most recent, and most common year of birth :',maxbirth)
-        print('Display earliest, most recent, and most common year of birth :',modebirth)    
-           
+        print('Display earliest, most recent, and most common year of birth :',modebirth)
+
     except:
         print('Column gender not available') # o Gender not available
         print('Column Bith Year not available') # o Gender not available
-        
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-    
+
 def raw_data(df):
     """Displays raw data on user request.
     Args:
@@ -196,9 +196,9 @@ def raw_data(df):
         if view_raw_data.lower() != 'yes':
             return
         next = next + 5
-        print(df.iloc[next:next+5])    
+        print(df.iloc[next:next+5])
 
-        
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -222,4 +222,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
